@@ -1,3 +1,23 @@
+<?php
+
+$conexion = mysqli_connect("localhost", "root", "", "anda");
+
+if ($_POST) {
+    $nombre = $_POST["nombre"];
+    $ciudad = $_POST["ciudad"];
+    $experiencia = $_POST["experiencia"];
+    $calificacion = $_POST["calificacion"];
+
+    $consulta = "INSERT INTO experiencias (nombre, ciudad, experiencia, calificacion)
+VALUES ('$nombre', '$ciudad', '$experiencia', '$calificacion')";
+
+mysqli_query($conexion, $consulta);
+
+}
+
+$resultado = mysqli_query($conexion, "SELECT * FROM experiencias");
+
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -219,15 +239,51 @@
       </div>
     </div>
   </div>
+<?php
+while ($fila = mysqli_fetch_array($resultado)) {
+?>
+    <div class="exp-card">
+        <div class="exp-body">
+
+            <p class="exp-tag">
+                📍 <?php echo $fila["ciudad"]; ?>
+            </p>
+
+            <p class="exp-quote">
+                "<?php echo $fila["experiencia"]; ?>"
+            </p>
+
+            <div class="exp-stars">
+                <?php
+                for ($i = 0; $i < $fila["calificacion"]; $i++) {
+                    echo "★";
+                }
+                ?>
+            </div>
+
+            <p class="exp-author">
+                — <?php echo $fila["nombre"]; ?>
+            </p>
+
+        </div>
+    </div>
+<?php
+}
+?>
+
+<?php
+mysqli_close($conexion);
+?>
 
   <!-- Formulario -->
   <div class="exp-form-section">
     <h2 class="exp-form-title">¡Contanos tu <span>experiencia</span>!</h2>
+    <form action="index.php" method="POST">
     <div class="form-group">
       <label>Tu nombre</label>
       <input type="text" id="form-nombre" name="nombre" placeholder="Ej: Lucas Ferreyra">
     </div>
-    <form action="index.php" method="POST">
+    
       
     <div class="form-group">
       <label>Ciudad que visitaste</label>
@@ -245,22 +301,27 @@
     </div>
     <div class="form-group">
       <label>Tu experiencia</label>
-      <textarea id="form-exp" placeholder="Contanos cómo fue tu visita..."></textarea>
+      <textarea id="form-exp" name="experiencia" placeholder="Contanos cómo fue tu visita..."></textarea>
     </div>
     <div class="form-group">
       <label>Calificación</label>
       <div class="stars-input" id="stars-input">
-        <button class="star-btn" onclick="setStar(1)">★</button>
-        <button class="star-btn" onclick="setStar(2)">★</button>
-        <button class="star-btn" onclick="setStar(3)">★</button>
-        <button class="star-btn" onclick="setStar(4)">★</button>
-        <button class="star-btn" onclick="setStar(5)">★</button>
+        <button type="button" class="star-btn" onclick="setStar(1)">★</button>
+<button type="button" class="star-btn" onclick="setStar(2)">★</button>
+<button type="button" class="star-btn" onclick="setStar(3)">★</button>
+<button type="button" class="star-btn" onclick="setStar(4)">★</button>
+<button type="button" class="star-btn" onclick="setStar(5)">★</button>
       </div>
+
+      <input type="hidden" id="form-calificacion" name="calificacion">
     </div>
-    <button class="form-submit-btn" onclick="submitForm()">Enviar experiencia</button>
+    <button type="submit" class="form-submit-btn">Enviar experiencia</button>
     <div class="form-success" id="form-success">
       ¡Gracias! Tu experiencia fue enviada con éxito.
     </div>
+
+    </form>
+
   </div>
 </div>
 
@@ -926,6 +987,8 @@ function closeMenu() {
 let selectedStars = 0;
 function setStar(n) {
   selectedStars = n;
+  document.getElementById('form-calificacion').value = n;
+
   document.querySelectorAll('.star-btn').forEach((btn, i) => {
     btn.classList.toggle('active', i < n);
   });
