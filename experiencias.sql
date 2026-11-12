@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.3
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 01-10-2026 a las 20:28:42
--- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.2.12
+-- Tiempo de generación: 12-11-2026 a las 19:04:01
+-- Versión del servidor: 10.11.16-MariaDB
+-- Versión de PHP: 8.3.36
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -40,7 +40,11 @@ CREATE TABLE `experiencias` (
 --
 
 INSERT INTO `experiencias` (`id_experiencia`, `nombre`, `ciudad`, `experiencia`, `calificacion`) VALUES
-(3, 'manuel', 'Barcelona', 'MUY BUENO!', 5);
+(1, 'Charly', 'Londres', 'Excelente servicios gastronómicos recomendados por la pagina!\r\nVolvería completamente  ', 5),
+(2, 'Delfina', 'Roma', 'La pasamos increíble en la cancha de la Roma! Pudimos presenciar un partido y luego tomarnos fotos con los jugadores!', 5),
+(3, 'Pedro ', 'Río de Janeiro', 'Increíble saber que Rio de janeiro no son solo playas! En fin, una muy linda experiencia familiar en el maracaná ', 5),
+(4, 'Sebastian', 'Buenos Aires', 'Un poco complicada la entrada pero la cancha de River es de las mas hermosas que vieron mis ojos!', 4),
+(5, 'Irina ', 'Madrid', 'Fue una gran sorpresa para mi padre poder conocer la cancha del Real Madrid, pudimos cenar en el restaurante del estadio y conocer las instalaciones mediante el tour', 5);
 
 --
 -- Índices para tablas volcadas
@@ -60,7 +64,7 @@ ALTER TABLE `experiencias`
 -- AUTO_INCREMENT de la tabla `experiencias`
 --
 ALTER TABLE `experiencias`
-  MODIFY `id_experiencia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_experiencia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
