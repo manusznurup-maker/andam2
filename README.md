@@ -62,9 +62,6 @@ El proyecto no cuenta actualmente con un panel de administración ni con un sist
 
 ## Capturas de pantalla
 
-
-## Capturas de pantalla
-
 ### Página principal
 ![Inicio de ANDÁ](capturas/INICIO.png)
 
