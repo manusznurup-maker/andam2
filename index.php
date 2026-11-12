@@ -13,6 +13,9 @@ VALUES ('$nombre', '$ciudad', '$experiencia', '$calificacion')";
 
 mysqli_query($conexion, $consulta);
 
+header("Location: index.php#experiencias");
+exit();
+
 }
 
 $resultado = mysqli_query($conexion, "SELECT * FROM experiencias");
@@ -137,7 +140,12 @@ $resultado = mysqli_query($conexion, "SELECT * FROM experiencias");
 <div id="page-ciudades" class="page">
   <div class="ciudades-hero">
     <h1 class="page-title">¡CIUDADES<span>!</span></h1>
-    <p class="home-sub">Elegí tu destino futbolero</p>
+    <p class="home-sub">Elegí tu destino </p>
+    <div class="search-bar">
+  <input type="text" id="search-ciudad" placeholder="¡BUSCÁ TU CIUDAD!" oninput="handleSearchCiudad(this.value)" autocomplete="off">
+  <button onclick="buscarCiudad()">Buscar</button>
+</div>
+<div class="search-results" id="resultados-ciudad"></div>
   </div>
   <div class="ciudades-grid">
     <div class="ciudad-card" onclick="showCiudad('miami')">
@@ -199,7 +207,7 @@ $resultado = mysqli_query($conexion, "SELECT * FROM experiencias");
 <div id="page-experiencias" class="page">
   <div class="exp-hero">
     <h1 class="page-title">¡EXPERIENCIAS<span>!</span></h1>
-    <p class="home-sub">Lo que dicen los hinchas viajeros</p>
+    <p class="home-sub">Cada cancha tiene una historia, ¡contanos la tuya!</p>
   </div>
   <div class="exp-grid">
     <!-- Reseña 1 -->
@@ -238,11 +246,16 @@ $resultado = mysqli_query($conexion, "SELECT * FROM experiencias");
         <p class="exp-author">— Valentina M., Rosario</p>
       </div>
     </div>
+
   </div>
+  <div class="exp-grid">
 <?php
 while ($fila = mysqli_fetch_array($resultado)) {
 ?>
-    <div class="exp-card">
+
+
+
+ <div class="exp-card exp-card-user">
         <div class="exp-body">
 
             <p class="exp-tag">
@@ -270,6 +283,8 @@ while ($fila = mysqli_fetch_array($resultado)) {
 <?php
 }
 ?>
+
+</div>
 
 <?php
 mysqli_close($conexion);
@@ -329,7 +344,7 @@ mysqli_close($conexion);
 <div id="page-sobre" class="page">
   <div class="sobre-layout">
     <div class="sobre-main-text" style="margin-bottom:2px;">
-      <p class="sobre-kicker">Trabajo Práctico — Producción Digital I</p>
+      <p class="sobre-kicker">Trabajo Práctico — Producción Digital II</p>
       <h2 class="sobre-big-title">¡SOBRE EL<br>PROYECTO<span>!</span></h2>
       <div class="sobre-text">
         <p>¡Andá Pa Allá! nació de una idea simple: hoy la información sobre estadios, tours, museos, tiendas y entradas está repartida en muchas páginas distintas, lo que hace difícil organizar una visita fácil.</p>
@@ -340,16 +355,16 @@ mysqli_close($conexion);
 
     <div class="sobre-data-row">
       <div class="sobre-dato">
-        <span class="sobre-dato-num">4</span>
-        <p class="sobre-dato-label">Ciudades cubiertas</p>
+        <span class="sobre-dato-num">7</span>
+        <p class="sobre-dato-label">Ciudades disponibles</p>
       </div>
       <div class="sobre-dato">
         <span class="sobre-dato-num">8</span>
         <p class="sobre-dato-label">Clubes destacados</p>
       </div>
       <div class="sobre-dato">
-        <span class="sobre-dato-num">1</span>
-        <p class="sobre-dato-label">Solo lugar donde buscar</p>
+        <span class="sobre-dato-num">6</span>
+        <p class="sobre-dato-label">Países incluidos</p>
       </div>
     </div>
 
@@ -361,11 +376,10 @@ mysqli_close($conexion);
     <div class="sobre-dev-section">
       <p class="sobre-dev-label">Desarrollado por</p>
       <div class="dev-row">
-        <div class="dev-avatar">MS</div>
         <div class="dev-info">
-          <h4>Manuel Sznurewicz</h4>
-          <p>Diseño de Imagen y Sonido — Universidad de Palermo · Legajo 0161930</p>
-          <p style="margin-top:0.3rem;color:var(--verde)">Producción Digital I · 2026</p>
+          <h4>Manuel Sznurewicz y Felipe Gullco</h4>
+          <p>Diseño de Imagen y Sonido — Universidad de Palermo · </p>
+          <p style="margin-top:0.3rem;color:var(--verde)">Producción Digital II · 2026</p>
         </div>
       </div>
     </div>
@@ -411,8 +425,8 @@ mysqli_close($conexion);
 <!-- ═══ GASTRONOMÍA ═══ -->
 <div id="page-gastronomia" class="page">
   <div class="exp-hero">
-    <h1 class="page-title">¡GASTRO<span>!</span></h1>
-    <p class="home-sub">Comé como hincha local</p>
+    <h1 class="page-title">¡GASTRONOMÍA<span>!</span></h1>
+    <p class="home-sub">¡Disfrutá de la comida del hincha!</p>
   </div>
 
   <!-- Filtro por ciudad -->
@@ -434,7 +448,7 @@ mysqli_close($conexion);
       <div class="gastro-card-img"><img src="img/BOCA-CANTINA.JPG" alt="Genovés"></div>
       <div class="gastro-card-header" style="background:linear-gradient(135deg,#003087,#FFD700)">
         <span class="gastro-club-tag">Boca Juniors</span>
-        <h3 class="gastro-resto-name">Genovés</h3>
+        <h3 class="gastro-resto-name">Genoves</h3>
         <p class="gastro-resto-sub">📍 Brandsen 640, La Boca</p>
       </div>
       <div class="gastro-body">
@@ -1048,6 +1062,57 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.key === 'Enter') doSearch();
   });
 });
+const listaCiudades = [
+  { nombre: "Buenos Aires", id: "baires" },
+  { nombre: "Barcelona", id: "barcelona" },
+  { nombre: "Roma", id: "roma" },
+  { nombre: "Miami", id: "miami" },
+  { nombre: "Madrid", id: "madrid" },
+  { nombre: "Londres", id: "london" },
+  { nombre: "Río de Janeiro", id: "rio" }
+];
+
+function handleSearchCiudad(texto) {
+  const resultados = document.getElementById("resultados-ciudad");
+  const busqueda = texto.trim().toLowerCase();
+
+  if (busqueda === "") {
+    resultados.innerHTML = "";
+    resultados.classList.remove("visible");
+    return;
+  }
+
+  const coincidencias = listaCiudades.filter(ciudad =>
+    ciudad.nombre.toLowerCase().includes(busqueda)
+  );
+
+  resultados.innerHTML = coincidencias.map(ciudad => `
+    <div class="search-result-item"
+         onclick="seleccionarCiudad('${ciudad.id}')">
+      ${ciudad.nombre}
+    </div>
+  `).join("");
+
+  resultados.classList.toggle("visible", coincidencias.length > 0);
+}
+
+function seleccionarCiudad(id) {
+  showCiudad(id);
+  document.getElementById("resultados-ciudad").classList.remove("visible");
+}
+
+function buscarCiudad() {
+  const texto = document.getElementById("search-ciudad").value.toLowerCase();
+  const ciudad = listaCiudades.find(c =>
+    c.nombre.toLowerCase().includes(texto) && texto.trim() !== ""
+  );
+
+  if (ciudad) {
+    seleccionarCiudad(ciudad.id);
+  } else {
+    showToast("No se encontró esa ciudad");
+  }
+}
 </script>
 </body>
 </html>

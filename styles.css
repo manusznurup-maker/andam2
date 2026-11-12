@@ -1141,3 +1141,13 @@
 @media (max-width: 768px) {
   .gastro-grid { padding: 0 1rem 5rem; }
 }
+
+/* Experiencias enviadas por usuarios */
+.exp-card-user {
+    width: 350px;
+    max-width: calc(100% - 48px);
+    margin: 24px;
+    display: inline-block;
+    vertical-align: top;
+    border: 1px solid #2b2b2b;
+}
