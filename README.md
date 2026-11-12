@@ -62,4 +62,14 @@ El proyecto no cuenta actualmente con un panel de administración ni con un sist
 
 ## Capturas de pantalla
 
-En este apartado se incorporarán capturas de la página principal, la navegación, el formulario de experiencias y la estructura de la base de datos.
+### Página principal
+![Inicio de ANDÁ](capturas/inicio.png)
+
+### Sección Ciudades
+![Ciudades disponibles](capturas/ciudades.png)
+
+### Sección Experiencias
+![Formulario y reseñas](capturas/experiencias.png)
+
+### Estructura de la base de datos
+![Estructura de MySQL](capturas/base_datos.png)
