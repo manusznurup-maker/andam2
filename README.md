@@ -62,14 +62,30 @@ El proyecto no cuenta actualmente con un panel de administración ni con un sist
 
 ## Capturas de pantalla
 
+
+## Capturas de pantalla
+
 ### Página principal
-![Inicio de ANDÁ](capturas/inicio.png)
+![Inicio de ANDÁ](capturas/INICIO.png)
 
 ### Sección Ciudades
-![Ciudades disponibles](capturas/ciudades.png)
+![Ciudades disponibles](capturas/CIUDADES.png)
 
 ### Sección Experiencias
-![Formulario y reseñas](capturas/experiencias.png)
+![Experiencias](capturas/EXPERIENCIAS%20.png)
+
+### Más experiencias
+![Reseñas de usuarios](capturas/EXPERIENCIAS%202%20%28mas%20abajo%29.png)
+
+### Formulario de experiencias
+![Formulario para publicar reseñas](capturas/EXPERIENCIAS%203%20%28formulario%2C%20mas%20abajo%29.png)
+
+### Sección Gastronomía
+![Gastronomía](capturas/GASTRONOMIA.png)
+
+### Sobre el proyecto
+![Sobre el proyecto](capturas/SOBRE%20EL%20PROYECTO.png)
 
 ### Estructura de la base de datos
-![Estructura de MySQL](capturas/base_datos.png)
+![Estructura de MySQL](capturas/BASE%20DE%20DATOS%20ESTRUCTURA.png)
+
