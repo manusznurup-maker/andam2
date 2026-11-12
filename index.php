@@ -1,23 +1,28 @@
 <?php
-
+// Conexión al servidor local MySQL y a la base de datos "anda".
 $conexion = mysqli_connect("localhost", "root", "", "anda");
 
+// Si el usuario envía el formulario, se reciben los datos por POST.
 if ($_POST) {
     $nombre = $_POST["nombre"];
     $ciudad = $_POST["ciudad"];
     $experiencia = $_POST["experiencia"];
     $calificacion = $_POST["calificacion"];
 
+    // Se arma la consulta para guardar la reseña en la tabla experiencias.
     $consulta = "INSERT INTO experiencias (nombre, ciudad, experiencia, calificacion)
 VALUES ('$nombre', '$ciudad', '$experiencia', '$calificacion')";
 
+// Se ejecuta la consulta SQL para insertar la experiencia.
 mysqli_query($conexion, $consulta);
 
+// Redirige a la sección Experiencias para evitar reenviar el formulario al actualizar.
 header("Location: index.php#experiencias");
 exit();
 
 }
 
+// Se recuperan todas las reseñas guardadas para mostrarlas en la página.
 $resultado = mysqli_query($conexion, "SELECT * FROM experiencias");
 
 ?>
@@ -250,6 +255,7 @@ $resultado = mysqli_query($conexion, "SELECT * FROM experiencias");
   </div>
   <div class="exp-grid">
 <?php
+// Se recorre cada registro devuelto por MySQL y se crea una tarjeta de reseña.
 while ($fila = mysqli_fetch_array($resultado)) {
 ?>
 
@@ -268,7 +274,8 @@ while ($fila = mysqli_fetch_array($resultado)) {
 
             <div class="exp-stars">
                 <?php
-                for ($i = 0; $i < $fila["calificacion"]; $i++) {
+                // Se muestra una estrella por cada punto de calificación.
+                 for ($i = 0; $i < $fila["calificacion"]; $i++) {
                     echo "★";
                 }
                 ?>
@@ -287,12 +294,14 @@ while ($fila = mysqli_fetch_array($resultado)) {
 </div>
 
 <?php
+// Se cierra la conexión con MySQL después de mostrar las reseñas.
 mysqli_close($conexion);
 ?>
 
   <!-- Formulario -->
   <div class="exp-form-section">
     <h2 class="exp-form-title">¡Contanos tu <span>experiencia</span>!</h2>
+    <!-- Envía los datos de la experiencia a este mismo archivo mediante POST. -->
     <form action="index.php" method="POST">
     <div class="form-group">
       <label>Tu nombre</label>
@@ -599,6 +608,7 @@ mysqli_close($conexion);
 // ════════════════════════════════════════
 // DATA
 // ════════════════════════════════════════
+// Información de ciudades, clubes y estadios utilizada en las vistas dinámicas.
 const ciudadesData = {
   baires: {
     nombre: 'Buenos Aires — Boca Juniors',
@@ -824,6 +834,7 @@ const gradMap = {
 // ════════════════════════════════════════
 // NAVIGATION
 // ════════════════════════════════════════
+// Activa la sección elegida y oculta las demás sin recargar la página.
 function showPage(id) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   const target = document.getElementById('page-' + id);
@@ -835,6 +846,7 @@ function showPage(id) {
   if (tabMap[id]) document.getElementById(tabMap[id]).classList.add('active');
 }
 
+// Completa la vista de detalle con los datos del destino seleccionado.
 function showCiudad(slug) {
   const data = ciudadesData[slug];
   if (!data) return;
@@ -955,6 +967,7 @@ const searchIndex = [
 
 let searchActions = [];
 
+// Filtra las opciones de búsqueda según el texto ingresado.
 function handleSearch(val) {
   const q = val.trim().toLowerCase();
   const resultsEl = document.getElementById('search-results');
@@ -999,6 +1012,7 @@ function closeMenu() {
 // STARS FORM
 // ════════════════════════════════════════
 let selectedStars = 0;
+// Guarda la puntuación seleccionada en el campo oculto del formulario.
 function setStar(n) {
   selectedStars = n;
   document.getElementById('form-calificacion').value = n;
@@ -1039,6 +1053,7 @@ function showToast(msg) {
 // ════════════════════════════════════════
 // GASTRO FILTER
 // ════════════════════════════════════════
+// Muestra solo las propuestas gastronómicas de la ciudad elegida.
 function filterGastro(ciudad) {
   document.querySelectorAll('.gastro-filter').forEach(btn => btn.classList.remove('active'));
   event.target.classList.add('active');
@@ -1072,6 +1087,7 @@ const listaCiudades = [
   { nombre: "Río de Janeiro", id: "rio" }
 ];
 
+// Sugiere ciudades coincidentes en el buscador de la sección Ciudades.
 function handleSearchCiudad(texto) {
   const resultados = document.getElementById("resultados-ciudad");
   const busqueda = texto.trim().toLowerCase();
